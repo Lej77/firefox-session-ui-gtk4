@@ -3,6 +3,8 @@
 This is a graphical user interface for interacting with Firefox's session store
 file that contains info about currently opened tabs and windows.
 
+Note that this program simply makes use of the code exposed by the CLI tool at <https://github.com/Lej77/firefox_session_data>.
+
 ## Build
 
 To build this program you need to have `GTK4` installed, for instructions see
