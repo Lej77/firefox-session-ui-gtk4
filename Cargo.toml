@@ -1,0 +1,48 @@
+[package]
+name = "firefox-session-ui-gtk4"
+version = "0.1.0"
+edition = "2021"
+authors = ["Lej77 <31554212+Lej77@users.noreply.github.com>"]
+license = "MIT OR Apache-2.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[features]
+default = [
+    "dark-theme",
+    "real_data",
+]
+
+dark-theme = ["dep:dark-light", "dep:windows"]
+
+# Disable this feature to see fake data for faster compile times:
+real_data = ["dep:firefox_session_data"]
+
+# Support more html to PDF converters (increases binary size):
+html_to_pdf_all = ["firefox_session_data?/html_to_pdf_all"]
+
+
+[dependencies]
+# Relm4 is an idiomatic GUI library inspired by Elm and based on gtk4-rs, for help see: https://relm4.org/book/stable/introduction.html
+relm4 = "0.9.0"
+relm4-components = "0.9.0"
+
+tokio = "1.37.0" # Spawn background work
+rfd = "0.15.0" # File prompts
+
+either = "1.11.0" # Used in public API of firefox_session_data
+serde_json = "1.0.116" # Used to parse session data into the type exported by firefox_session_data
+firefox_session_data = { git = "http://github.com/Lej77/firefox_session_data.git", tag = "v0.1.0", optional = true, features = [
+    "windows-gui",
+] }
+
+[target.'cfg(windows)'.dependencies]
+dark-light = { version = "2.0.0", optional = true } # Detect if system is using dark theme
+gdk-win32 = { version = "0.9.5", package = "gdk4-win32", features = ["win32"] }
+windows = { version = "0.56.0", optional = true, features = [
+    "Win32_Graphics_Dwm", # DWMWA_USE_IMMERSIVE_DARK_MODE
+    "Win32_Foundation", # DwmSetWindowAttribute
+    "Win32_UI_WindowsAndMessaging", # SetWindowPos
+] }
+
+[build-dependencies]
+winresource = "0.1.19" # Executable icon on Windows

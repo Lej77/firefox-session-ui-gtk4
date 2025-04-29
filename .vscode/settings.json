@@ -1,0 +1,19 @@
+{
+    "cSpell.words": [
+        "activatable",
+        "gvsbuild",
+        "pkgconfig",
+        "relm"
+    ],
+    "rust-analyzer.cargo.extraEnv": {
+        "PKG_CONFIG_PATH": "C:/gtk-build/gtk/x64/release/lib/pkgconfig",
+        "PATH": "C:/gtk-build/gtk/x64/release/bin",
+        "LIB": "C:/gtk-build/gtk/x64/release/lib"
+    },
+    "terminal.integrated.env.windows": {
+        "PKG_CONFIG_PATH": "C:/gtk-build/gtk/x64/release/lib/pkgconfig",
+        "PATH": "${env:PATH};C:/gtk-build/gtk/x64/release/bin",
+        "LIB": "${env:LIB};C:/gtk-build/gtk/x64/release/lib"
+    },
+    "python.analysis.typeCheckingMode": "strict"
+}

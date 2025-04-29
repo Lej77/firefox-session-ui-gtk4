@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "streetsidesoftware.code-spell-checker",
+        "stkb.rewrap",
+        "rust-lang.rust-analyzer",
+        "belfz.search-crates-io",
+        "tamasfe.even-better-toml",
+        "ms-python.python",
+        "charliermarsh.ruff"
+    ]
+}

@@ -1,0 +1,1 @@
+https://github.com/gtk-rs/gtk4-rs/blob/44ec2cf599a33df0990ecb579493b5305e604885/examples/about_dialog/gtk-rs.svg
