@@ -24,6 +24,9 @@ jobs:
       #- name: Configure cache
       #  uses: Swatinem/rust-cache@v2
 
+      - name: Install Python script dependencies
+        run: pip install requests
+
 
       # Can't build GTK 4 because of timeout when downloading dependencies, so we download a prebuilt GTK 4 instead
 
