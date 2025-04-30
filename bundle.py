@@ -30,8 +30,10 @@ def build_rust_binary(**kwargs: Unpack[BuildRustBinaryParams]):
     gtk_bin_dir = Path(kwargs["gtk_bin_dir"])
     my_env = os.environ.copy()
     my_env["PKG_CONFIG_PATH"] = str(gtk_bin_dir.joinpath("../lib/pkgconfig").resolve())
-    my_env["PATH"] = my_env["PATH"] + ";" + str(gtk_bin_dir.resolve())
-    my_env["LIB"] = my_env["LIB"] + ";" + str(gtk_bin_dir.joinpath("../lib").resolve())
+    my_env["PATH"] = my_env.get("PATH", "") + ";" + str(gtk_bin_dir.resolve())
+    my_env["LIB"] = (
+        my_env.get("LIB", "") + ";" + str(gtk_bin_dir.joinpath("../lib").resolve())
+    )
 
     # Start build:
     try:
@@ -61,7 +63,7 @@ def build_rust_binary(**kwargs: Unpack[BuildRustBinaryParams]):
         msg = json.loads(line)
         if msg["reason"] != "compiler-artifact":
             continue
-        if not msg["executable"] or not isinstance(msg["executable"], str):
+        if "executable" not in msg or not isinstance(msg["executable"], str):
             continue
         binaries.append(msg["executable"])
 
@@ -88,7 +90,7 @@ def get_cargo_metadata() -> CargoMetadata:
     text = result.stdout.decode("utf-8")
     metadata = json.loads(text)
 
-    if metadata["target_directory"] is None:
+    if "target_directory" not in metadata:
         raise ValueError(
             'The returned json object didn\'t define a "target_directory" property'
         )
@@ -105,7 +107,7 @@ def get_cargo_metadata() -> CargoMetadata:
         raise ValueError("packages is not a list")
     if len(metadata["packages"]) != 1:
         raise ValueError("packages is not a list of length 1")
-    if metadata["packages"][0]["name"] is None:
+    if "name" not in metadata["packages"][0]:
         raise ValueError('The package didn\'t define a "name" property')
     if not isinstance(metadata["packages"][0]["name"], str):
         raise ValueError("name is not a string")
@@ -177,7 +179,7 @@ def bundle():
                 exit(1)
             data = response.json()
             # print(json.dumps(data, indent=4)) # <- pretty print JSON response
-            if data["assets"] is None or len(data["assets"]) == 0:
+            if "assets" not in data or len(data["assets"]) == 0:
                 print("Could not download GTK release, no assets found")
                 print()
                 exit(1)
@@ -201,7 +203,7 @@ def bundle():
                 + str(gtk_asset["name"])
             )
 
-            if gtk_asset["browser_download_url"] is None:
+            if "browser_download_url" not in gtk_asset:
                 print("Could not download GTK release, no browser_download_url found")
                 print()
                 exit(1)
