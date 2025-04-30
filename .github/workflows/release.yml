@@ -48,7 +48,7 @@ jobs:
       - name: Post Build | Move and rename binary
         run: |
           mkdir uploads
-          mv target/release/${{ env.binary_name }}.zip uploads/${{ env.binary_name }}-x86_64-pc-windows-msvc.zip
+          mv target/release/${{ env.binary_name }}-bundled.zip uploads/${{ env.binary_name }}-x86_64-pc-windows-msvc.zip
 
       - name: Post Build | Upload files
         uses: actions/upload-artifact@v4
