@@ -5,6 +5,8 @@ file that contains info about currently opened tabs and windows.
 
 Note that this program simply makes use of the code exposed by the CLI tool at <https://github.com/Lej77/firefox_session_data>.
 
+![GIF that shows the program being used.](gtk-demo.gif "Demo")
+
 ## Build
 
 To build this program you need to have `GTK4` installed, for instructions see
